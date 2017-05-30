@@ -1,0 +1,142 @@
+'CREATE TABLE `main_inventory` (\n  `sku` varchar(50) NOT NULL DEFAULT \'0\',\n  `description` varchar(255) DEFAULT \'0\',\n  `total` int(11) DEFAULT \'0\',\n  `available` int(11) DEFAULT NULL,\n  `open` int(11) DEFAULT \'0\',\n  `pending_checkout` int(11) DEFAULT \'0\',\n  `pending_payment` int(11) DEFAULT \'0\',\n  `pending_shipment` int(11) DEFAULT \'0\',\n  `flag` varchar(255) DEFAULT \'0\',\n  `parent_sku` varchar(50) DEFAULT NULL,\n  `label` varchar(255) DEFAULT NULL,\n  `img_url` varchar(500) DEFAULT NULL,\n  `ns_description` varchar(255) DEFAULT NULL,\n  `location` varchar(255) DEFAULT NULL,\n  `backstock` varchar(255) DEFAULT NULL,\n  `upc` varchar(25) DEFAULT NULL,\n  `stock` int(11) DEFAULT NULL,\n  `committed` int(11) DEFAULT NULL,\n  `head_cover` char(2) DEFAULT NULL,\n  `inline` varchar(255) DEFAULT NULL,\n  `purchase_price` decimal(10,2) DEFAULT NULL,\n  `receipt` varchar(20) DEFAULT NULL,\n  `is_blocked` varchar(8) NOT NULL DEFAULT \'0\',\n  `less_nine` tinyint(1) NOT NULL DEFAULT \'0\',\n  `alerts` tinyint(1) NOT NULL DEFAULT \'0\',\n  `delist` tinyint(1) NOT NULL DEFAULT \'0\',\n  `ebay` tinyint(1) NOT NULL DEFAULT \'0\',\n  `relist` tinyint(1) NOT NULL DEFAULT \'0\',\n  `relist_pushed` tinyint(1) NOT NULL DEFAULT \'0\',\n  `remove` tinyint(1) NOT NULL DEFAULT \'0\',\n  `dupe_loc` tinyint(1) NOT NULL DEFAULT \'0\',\n  `dupe_upc` tinyint(1) NOT NULL DEFAULT \'0\',\n  `wholesale_committed` tinyint(1) NOT NULL DEFAULT \'0\',\n  `bucket` tinyint(1) DEFAULT \'0\',\n  `jdaily_quantity` tinyint(1) NOT NULL DEFAULT \'0\',\n  PRIMARY KEY (`sku`),\n  KEY `flag` (`flag`),\n  KEY `total` (`total`),\n  KEY `available` (`available`),\n  KEY `open` (`open`),\n  KEY `location` (`location`),\n  KEY `UPC` (`upc`),\n  KEY `stock` (`stock`),\n  KEY `receipt` (`receipt`),\n  KEY `jdaily_quantity` (`jdaily_quantity`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8'
+
+'CREATE TABLE `big_commerce_daily` (
+  `sku` varchar(50) NOT NULL,
+  PRIMARY KEY (`sku`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8'
+
+'CREATE TABLE `bucket` (
+  `sku` varchar(50) NOT NULL,
+  PRIMARY KEY (`sku`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8'
+
+'CREATE TABLE `ca_inventory` (
+  `sku` varchar(50) NOT NULL DEFAULT ''0'',
+  `description` varchar(255) DEFAULT ''0'',
+  `total` int(11) DEFAULT ''0'',
+  `available` int(11) DEFAULT NULL,
+  `pending_checkout` int(11) DEFAULT ''0'',
+  `pending_payment` int(11) DEFAULT ''0'',
+  `pending_shipment` int(11) DEFAULT ''0'',
+  `flag` varchar(255) DEFAULT ''0'',
+  `blocked` varchar(8) DEFAULT ''0'',
+  `parent_sku` varchar(50) DEFAULT NULL,
+  `label` varchar(255) DEFAULT NULL,
+  `img_url` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`sku`),
+  KEY `flag` (`flag`),
+  KEY `total` (`total`),
+  KEY `available` (`available`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8'
+
+'CREATE TABLE `free_locations` (
+  `location` varchar(50) NOT NULL,
+  `bin_size` varchar(10) NOT NULL,
+  PRIMARY KEY (`location`),
+  KEY `bin_size` (`bin_size`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8'
+
+'CREATE TABLE `location_removes` (
+  `location` varchar(50) NOT NULL,
+  PRIMARY KEY (`location`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8'
+
+'CREATE TABLE `ns_inventory` (
+  `sku` varchar(50) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `backstock` varchar(255) DEFAULT NULL,
+  `upc` varchar(25) DEFAULT NULL,
+  `stock` int(11) DEFAULT NULL,
+  `committed` int(11) DEFAULT NULL,
+  `head_cover` char(2) DEFAULT NULL,
+  `inline` varchar(255) DEFAULT NULL,
+  `purchase_price` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`sku`),
+  KEY `SKU` (`sku`),
+  KEY `location` (`location`),
+  KEY `UPC` (`upc`),
+  KEY `stock` (`stock`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8'
+
+'CREATE TABLE `receipt_date` (
+  `sku` varchar(50) NOT NULL,
+  `receipt` varchar(20) NOT NULL,
+  PRIMARY KEY (`sku`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8'
+
+'CREATE TABLE `relists` (
+  `sku` varchar(50) NOT NULL,
+  PRIMARY KEY (`sku`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8'
+
+'CREATE TABLE `removes` (
+  `sku` varchar(50) NOT NULL,
+  PRIMARY KEY (`sku`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8'
+
+'CREATE TABLE `removes_daily` (
+  `sku` varchar(50) NOT NULL,
+  PRIMARY KEY (`sku`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8'
+
+'CREATE TABLE `wholesale_pending` (
+  `sku` varchar(50) NOT NULL,
+  PRIMARY KEY (`sku`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8'
+
+###adjustment tables###
+
+'CREATE TABLE `daily_adjustment` (
+  `Inventory Adjustment #` int(11) DEFAULT NULL,
+  `SKU` varchar(50) NOT NULL,
+  `QTY` int(11) NOT NULL,
+  `Unit Cost` int(11) DEFAULT NULL,
+  PRIMARY KEY (`SKU`),
+  KEY `QTY` (`QTY`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8'
+
+'CREATE TABLE `item_receipt` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sku` varchar(50) NOT NULL DEFAULT ''0'',
+  `receipt_invoice` varchar(20) NOT NULL DEFAULT ''0'',
+  `receipt_date` varchar(20) NOT NULL DEFAULT ''0'',
+  `quantity` int(11) DEFAULT ''0'',
+  PRIMARY KEY (`id`),
+  KEY `sku` (`sku`),
+  KEY `receipt_invoice` (`receipt_invoice`)
+) ENGINE=InnoDB AUTO_INCREMENT=353714 DEFAULT CHARSET=utf8'
+
+'CREATE TABLE `location_table` (
+  `location` varchar(50) NOT NULL,
+  `bin_size` varchar(10) NOT NULL DEFAULT ''1'',
+  `high_value` set(''Yes'',''No'') NOT NULL DEFAULT ''No'',
+  PRIMARY KEY (`location`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8'
+
+'CREATE TABLE `ns_system_adjustments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sku` varchar(50) NOT NULL DEFAULT ''0'',
+  `date` varchar(20) NOT NULL DEFAULT ''0'',
+  `quantity` int(11) DEFAULT ''0'',
+  PRIMARY KEY (`id`),
+  KEY `sku` (`sku`)
+) ENGINE=InnoDB AUTO_INCREMENT=71803 DEFAULT CHARSET=utf8'
+
+'CREATE TABLE `previous_locations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sku` varchar(50) NOT NULL DEFAULT ''0'',
+  `location` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=113318 DEFAULT CHARSET=utf8'
+
+'CREATE TABLE `quantity_adjustments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `SKU` varchar(50) NOT NULL DEFAULT ''0'',
+  `Description` varchar(255) DEFAULT ''0'',
+  `NS_Adj_Req` smallint(6) DEFAULT ''0'',
+  `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `SKU` (`SKU`),
+  KEY `NS_Adj_Req` (`NS_Adj_Req`)
+) ENGINE=InnoDB AUTO_INCREMENT=14585 DEFAULT CHARSET=utf8'
