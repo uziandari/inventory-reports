@@ -86,9 +86,11 @@ Sub initializeMain(User_ID, Password)
                 & "AND inventory.main_inventory.`committed` > 0"
   queryDict.Add "clearLocationsTable", "TRUNCATE inventory.free_locations"
   queryDict.Add "findLocations", "INSERT INTO inventory.free_locations (location, bin_size) SELECT location, bin_size FROM invrec.location_table WHERE location NOT IN (SELECT location FROM inventory.ns_inventory) " _
-                & "AND location NOT IN (SELECT location FROM inventory.location_removes)"
+                & "AND location NOT IN (SELECT location FROM inventory.location_removes) "
+ queryDict.Add "findShoeLocations", "INSERT INTO inventory.free_locations (location, bin_size) SELECT invrec.location_table.location, invrec.location_table.bin_size FROM invrec.location_table LEFT JOIN inventory.ns_inventory ON invrec.location_table.location = inventory.ns_inventory.location " _
+                & "WHERE (invrec.location_table.location LIKE 'B%') AND ns_inventory.stock = 1 AND location_table.bin_size = 'SHOELQ' " _
+                & "GROUP BY ns_inventory.location HAVING COUNT(ns_inventory.location) < 3"
   queryDict.Add "applySafeUpdates", "SET SQL_SAFE_UPDATES=1"
-
 
   For Each query In queryDict.Keys
 
